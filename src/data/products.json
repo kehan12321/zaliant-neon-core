@@ -1,0 +1,68 @@
+[
+  {
+    "id": "1",
+    "title": "Premium VPN Access",
+    "description": "Ultra-secure VPN with unlimited bandwidth",
+    "longDescription": "Access our premium VPN network with servers in 50+ countries. Enjoy unlimited bandwidth, military-grade encryption, and 24/7 customer support.",
+    "price": 29.99,
+    "image": "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop",
+    "category": "security",
+    "features": ["Unlimited Bandwidth", "50+ Countries", "24/7 Support", "No Logs Policy"],
+    "plans": ["1 Month", "3 Months", "12 Months"]
+  },
+  {
+    "id": "2",
+    "title": "Discord Boost",
+    "description": "Professional Discord server boosting service",
+    "longDescription": "Elevate your Discord server with our premium boosting service. Get instant delivery and lifetime warranty.",
+    "price": 19.99,
+    "image": "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=800&h=600&fit=crop",
+    "category": "social",
+    "features": ["Instant Delivery", "Lifetime Warranty", "24/7 Support", "Verified Accounts"],
+    "plans": ["1 Month", "3 Months", "Permanent"]
+  },
+  {
+    "id": "3",
+    "title": "Premium Email Suite",
+    "description": "Professional business email hosting",
+    "longDescription": "Get a professional email address with advanced security features, unlimited storage, and priority support.",
+    "price": 39.99,
+    "image": "https://images.unsplash.com/photo-1557200134-90327ee9fafa?w=800&h=600&fit=crop",
+    "category": "business",
+    "features": ["Unlimited Storage", "Advanced Security", "Custom Domain", "Priority Support"],
+    "plans": ["1 User", "5 Users", "Unlimited"]
+  },
+  {
+    "id": "4",
+    "title": "Cloud Storage Pro",
+    "description": "Secure cloud storage with encryption",
+    "longDescription": "Store your files securely in the cloud with end-to-end encryption, automatic backups, and file sharing.",
+    "price": 24.99,
+    "image": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=600&fit=crop",
+    "category": "storage",
+    "features": ["End-to-End Encryption", "Automatic Backups", "File Sharing", "Version Control"],
+    "plans": ["100GB", "500GB", "2TB"]
+  },
+  {
+    "id": "5",
+    "title": "Gaming Server",
+    "description": "High-performance game server hosting",
+    "longDescription": "Host your favorite games with our ultra-low latency servers. Perfect for Minecraft, CS:GO, and more.",
+    "price": 34.99,
+    "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=600&fit=crop",
+    "category": "gaming",
+    "features": ["DDoS Protection", "Ultra-Low Latency", "Automatic Updates", "Full FTP Access"],
+    "plans": ["4GB RAM", "8GB RAM", "16GB RAM"]
+  },
+  {
+    "id": "6",
+    "title": "SEO Optimization",
+    "description": "Complete SEO package for your website",
+    "longDescription": "Boost your website's ranking with our comprehensive SEO optimization service. Includes keyword research and monthly reports.",
+    "price": 49.99,
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+    "category": "marketing",
+    "features": ["Keyword Research", "On-Page SEO", "Monthly Reports", "Competitor Analysis"],
+    "plans": ["Basic", "Professional", "Enterprise"]
+  }
+]
