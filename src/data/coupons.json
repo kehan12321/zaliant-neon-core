@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "code": "WELCOME10",
+    "type": "percentage",
+    "value": 10,
+    "active": true
+  },
+  {
+    "id": "2",
+    "code": "SAVE20",
+    "type": "percentage",
+    "value": 20,
+    "active": true
+  },
+  {
+    "id": "3",
+    "code": "FLAT15",
+    "type": "flat",
+    "value": 15,
+    "active": true
+  }
+]
