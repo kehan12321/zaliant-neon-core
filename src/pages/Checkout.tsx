@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Bitcoin, Wallet } from "lucide-react";
+import { Bitcoin, Wallet, Download } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
+import { generateMultipleLicenseKeys, createLicense } from "@/utils/licenseKeys";
+import { generateInvoice, saveInvoice } from "@/utils/invoice";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ const Checkout = () => {
   const { user } = useAuth();
   const [paymentMethod, setPaymentMethod] = useState<string>("");
   const [walletAddress, setWalletAddress] = useState<string>("");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const paymentMethods = [
     { id: "btc", name: "Bitcoin (BTC)", icon: Bitcoin, address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" },
@@ -26,31 +29,69 @@ const Checkout = () => {
     { id: "giftcard", name: "Gift Card", icon: Wallet, address: "" },
   ];
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
     if (!paymentMethod) {
       toast.error("Please select a payment method");
       return;
     }
 
-    const transactionId = `ZAL-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    
-    // Save order
-    const order = {
-      id: transactionId,
-      userId: user?.id,
-      items: cart,
-      total,
-      paymentMethod,
-      status: "completed",
-      date: new Date().toISOString(),
-    };
+    setIsProcessing(true);
 
-    const orders = JSON.parse(localStorage.getItem("zaliant_orders") || "[]");
-    orders.push(order);
-    localStorage.setItem("zaliant_orders", JSON.stringify(orders));
+    try {
+      // Simulate payment processing
+      await new Promise(resolve => setTimeout(resolve, 1500));
 
-    clearCart();
-    navigate(`/success?tx=${transactionId}`);
+      const transactionId = `ZAL-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      
+      // Generate license keys for each product
+      const licenses = cart.map(item => {
+        const keys = generateMultipleLicenseKeys(item.id, item.quantity);
+        return keys.map(key => createLicense(key, item.id, item.title));
+      }).flat();
+
+      // Generate invoice
+      const invoice = generateInvoice(
+        transactionId,
+        user?.id || 'guest',
+        user?.email || 'guest@zaliant.com',
+        cart,
+        total,
+        paymentMethod
+      );
+      
+      saveInvoice(invoice);
+
+      // Save order with licenses
+      const order = {
+        id: transactionId,
+        userId: user?.id,
+        items: cart,
+        total,
+        paymentMethod,
+        status: "completed",
+        date: new Date().toISOString(),
+        licenses,
+        invoiceId: invoice.id,
+      };
+
+      const orders = JSON.parse(localStorage.getItem("zaliant_orders") || "[]");
+      orders.push(order);
+      localStorage.setItem("zaliant_orders", JSON.stringify(orders));
+
+      // Save licenses separately for user
+      const userLicenses = JSON.parse(localStorage.getItem(`zaliant_licenses_${user?.id}`) || "[]");
+      userLicenses.push(...licenses);
+      localStorage.setItem(`zaliant_licenses_${user?.id}`, JSON.stringify(userLicenses));
+
+      clearCart();
+      toast.success("Order completed successfully! 🎉");
+      navigate(`/success?tx=${transactionId}`);
+    } catch (error) {
+      console.error("Checkout error:", error);
+      toast.error("Payment processing failed. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -173,9 +214,16 @@ const Checkout = () => {
                     className="w-full neon-glow"
                     size="lg"
                     onClick={handlePayment}
-                    disabled={!paymentMethod}
+                    disabled={!paymentMethod || isProcessing}
                   >
-                    Complete Purchase
+                    {isProcessing ? (
+                      <>
+                        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
+                        Processing...
+                      </>
+                    ) : (
+                      "Complete Purchase"
+                    )}
                   </Button>
 
                   <p className="text-xs text-muted-foreground text-center">
