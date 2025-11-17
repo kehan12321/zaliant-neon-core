@@ -8,6 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Using OKLCH for more vibrant, perceptually uniform colors */
     --background: 264 71% 8%;
     --foreground: 258 90% 96%;
 
@@ -17,8 +18,10 @@ All colors MUST be HSL.
     --popover: 264 60% 10%;
     --popover-foreground: 258 90% 96%;
 
-    --primary: 269 75% 51%;
+    /* Vibrant Purple Primary - Enhanced */
+    --primary: 269 85% 55%;
     --primary-foreground: 0 0% 100%;
+    --primary-glow: 269 90% 65%;
 
     --secondary: 264 71% 23%;
     --secondary-foreground: 258 90% 96%;
@@ -26,7 +29,8 @@ All colors MUST be HSL.
     --muted: 262 70% 20%;
     --muted-foreground: 258 50% 70%;
 
-    --accent: 258 90% 76%;
+    /* Enhanced Accent */
+    --accent: 280 90% 68%;
     --accent-foreground: 264 71% 8%;
 
     --destructive: 0 84.2% 60.2%;
@@ -34,20 +38,25 @@ All colors MUST be HSL.
 
     --border: 262 50% 25%;
     --input: 262 50% 20%;
-    --ring: 269 75% 51%;
+    --ring: 269 85% 55%;
 
     --radius: 0.75rem;
 
-    --neon-glow: 269 75% 51%;
+    /* Enhanced glow effects */
+    --neon-glow: 269 85% 55%;
+    --neon-glow-intense: 269 95% 65%;
     --glass-bg: 264 50% 12% / 0.6;
     
-    --gradient-primary: linear-gradient(135deg, hsl(269 75% 51%), hsl(258 90% 76%));
+    --gradient-primary: linear-gradient(135deg, hsl(269 85% 55%), hsl(280 90% 68%));
+    --gradient-hero: linear-gradient(135deg, hsl(269 85% 55%) 0%, hsl(280 90% 68%) 50%, hsl(290 85% 65%) 100%);
     --gradient-dark: linear-gradient(180deg, hsl(264 71% 8%), hsl(262 70% 15%));
     
-    --shadow-glow: 0 0 40px hsl(269 75% 51% / 0.3);
-    --shadow-glow-lg: 0 0 80px hsl(269 75% 51% / 0.4);
+    --shadow-glow: 0 0 40px hsl(269 85% 55% / 0.4);
+    --shadow-glow-lg: 0 0 80px hsl(269 85% 55% / 0.5);
+    --shadow-glow-xl: 0 0 120px hsl(269 85% 55% / 0.6);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
   .dark {
@@ -67,25 +76,78 @@ All colors MUST be HSL.
   }
   
   .glass {
-    background: rgba(76, 29, 149, 0.1);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(167, 139, 250, 0.1);
+    background: rgba(76, 29, 149, 0.15);
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(167, 139, 250, 0.15);
+    transition: var(--transition-smooth);
+  }
+  
+  .glass:hover {
+    background: rgba(76, 29, 149, 0.2);
+    border-color: rgba(167, 139, 250, 0.3);
   }
   
   .neon-glow {
-    box-shadow: 0 0 20px hsl(var(--neon-glow) / 0.3),
-                0 0 40px hsl(var(--neon-glow) / 0.2);
+    box-shadow: 0 0 20px hsl(var(--neon-glow) / 0.4),
+                0 0 40px hsl(var(--neon-glow) / 0.3),
+                inset 0 0 20px hsl(var(--neon-glow) / 0.1);
+    transition: var(--transition-smooth);
+  }
+  
+  .neon-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--neon-glow) / 0.6),
+                0 0 60px hsl(var(--neon-glow) / 0.4),
+                inset 0 0 30px hsl(var(--neon-glow) / 0.15);
   }
   
   .neon-glow-lg {
-    box-shadow: 0 0 40px hsl(var(--neon-glow) / 0.4),
-                0 0 80px hsl(var(--neon-glow) / 0.3);
+    box-shadow: 0 0 40px hsl(var(--neon-glow) / 0.5),
+                0 0 80px hsl(var(--neon-glow) / 0.4),
+                0 0 120px hsl(var(--neon-glow) / 0.2);
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 40px hsl(var(--neon-glow) / 0.5),
+                  0 0 80px hsl(var(--neon-glow) / 0.4),
+                  0 0 120px hsl(var(--neon-glow) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 50px hsl(var(--neon-glow) / 0.6),
+                  0 0 100px hsl(var(--neon-glow) / 0.5),
+                  0 0 150px hsl(var(--neon-glow) / 0.3);
+    }
   }
   
   .text-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    background: var(--gradient-hero);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: gradient-shift 8s ease infinite;
+    background-size: 200% 200%;
+  }
+  
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
   }
 }

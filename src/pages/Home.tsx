@@ -62,7 +62,7 @@ const Home = () => {
             <img
               src={zaliantLogo}
               alt="Zaliant"
-              className="h-32 w-32 mx-auto mb-8 neon-glow-lg"
+              className="h-32 w-32 mx-auto mb-8 neon-glow-lg floating"
             />
             <h1 className="text-6xl md:text-7xl font-bold mb-6">
               <span className="text-gradient">Premium Digital Services</span>
@@ -71,14 +71,14 @@ const Home = () => {
               Experience unmatched quality and performance with our suite of premium
               digital solutions. Built for professionals who demand excellence.
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center flex-wrap">
               <Link to="/store">
                 <Button size="lg" className="neon-glow text-lg px-8">
                   Shop Now
                 </Button>
               </Link>
               <Link to="/dashboard">
-                <Button size="lg" variant="outline" className="text-lg px-8">
+                <Button size="lg" variant="outline" className="text-lg px-8 hover:neon-glow">
                   Dashboard
                 </Button>
               </Link>

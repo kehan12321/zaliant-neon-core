@@ -1,23 +1,52 @@
 import { motion } from "framer-motion";
-import { Package, User, ShoppingBag } from "lucide-react";
+import { Package, User, ShoppingBag, Key, Copy, Check, Download } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
+import { downloadInvoice, getInvoicesByUserId } from "@/utils/invoice";
+import { toast } from "sonner";
+import { useState } from "react";
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const orders = JSON.parse(localStorage.getItem("zaliant_orders") || "[]").filter(
     (order: any) => order.userId === user?.id
   );
 
+  const licenses = JSON.parse(
+    localStorage.getItem(`zaliant_licenses_${user?.id}`) || "[]"
+  );
+
   const stats = [
     { icon: ShoppingBag, label: "Total Orders", value: orders.length },
-    { icon: Package, label: "Active Licenses", value: orders.length },
+    { icon: Key, label: "Active Licenses", value: licenses.length },
     { icon: User, label: "Account Status", value: "Active" },
   ];
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(text);
+    toast.success("License key copied!");
+    
+    setTimeout(() => {
+      setCopiedKey(null);
+    }, 2000);
+  };
+
+  const handleDownloadInvoice = (orderId: string) => {
+    if (user) {
+      const invoices = getInvoicesByUserId(user.id);
+      const invoice = invoices.find(inv => inv.orderId === orderId);
+      if (invoice) {
+        downloadInvoice(invoice);
+        toast.success("Invoice downloaded!");
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -105,7 +134,14 @@ const Dashboard = () => {
                           <span className="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-semibold">
                             {order.status}
                           </span>
-                          <Button variant="outline">View Details</Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleDownloadInvoice(order.id)}
+                          >
+                            <Download className="h-4 w-4 mr-2" />
+                            Invoice
+                          </Button>
                         </div>
                       </div>
                     </CardContent>
@@ -114,6 +150,48 @@ const Dashboard = () => {
               </div>
             )}
           </motion.div>
+
+          {/* License Keys */}
+          {licenses.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="mt-12"
+            >
+              <h2 className="text-3xl font-bold mb-6 text-gradient">Your License Keys</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {licenses.map((license: any) => (
+                  <Card key={license.key} className="glass border-border/50">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-sm font-semibold">{license.productTitle}</span>
+                        <span className="text-xs px-2 py-1 rounded bg-primary/20 text-primary">
+                          {license.status}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <code className="flex-1 font-mono text-sm bg-background/50 p-2 rounded">
+                          {license.key}
+                        </code>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => copyToClipboard(license.key)}
+                        >
+                          {copiedKey === license.key ? (
+                            <Check className="h-4 w-4 text-green-400" />
+                          ) : (
+                            <Copy className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {/* Account Settings */}
           <motion.div
