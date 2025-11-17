@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { CheckCircle2, Download, Copy, Check } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import PageLayout from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { downloadInvoice, getInvoicesByUserId } from "@/utils/invoice";
@@ -51,8 +50,7 @@ const OrderSuccess = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <PageLayout>
 
       <div className="pt-32 pb-20 px-4">
         <div className="container mx-auto max-w-3xl">
@@ -178,9 +176,7 @@ const OrderSuccess = () => {
           </motion.div>
         </div>
       </div>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 

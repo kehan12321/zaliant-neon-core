@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Shield, Zap, Headphones, Star } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import PageLayout from "@/components/PageLayout";
 import zaliantLogo from "@/assets/zaliant-logo.png";
 
 const Home = () => {
@@ -48,8 +47,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <PageLayout>
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4">
@@ -64,21 +62,21 @@ const Home = () => {
               alt="Zaliant"
               className="h-32 w-32 mx-auto mb-8 neon-glow-lg floating"
             />
-            <h1 className="text-6xl md:text-7xl font-bold mb-6">
+            <h1 className="text-6xl md:text-8xl font-bold mb-6">
               <span className="text-gradient">Premium Digital Services</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
               Experience unmatched quality and performance with our suite of premium
               digital solutions. Built for professionals who demand excellence.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
               <Link to="/store">
-                <Button size="lg" className="neon-glow text-lg px-8">
+                <Button size="lg" className="neon-glow text-lg px-10 py-6">
                   Shop Now
                 </Button>
               </Link>
               <Link to="/dashboard">
-                <Button size="lg" variant="outline" className="text-lg px-8 hover:neon-glow">
+                <Button size="lg" variant="outline" className="text-lg px-10 py-6 hover:neon-glow">
                   Dashboard
                 </Button>
               </Link>
@@ -94,7 +92,7 @@ const Home = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-4xl font-bold text-center mb-12 text-gradient"
+            className="text-4xl md:text-5xl font-bold text-center mb-12 text-gradient"
           >
             Why Choose Zaliant?
           </motion.h2>
@@ -107,8 +105,9 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
+                whileHover={{ y: -8 }}
               >
-                <Card className="glass border-border/50 hover:border-primary/50 transition-all duration-300 h-full">
+                <Card className="glass border-border/50 hover:border-primary/50 transition-all duration-300 h-full card-hover">
                   <CardContent className="p-8 text-center">
                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6 neon-glow">
                       <feature.icon className="h-8 w-8 text-primary" />
@@ -130,7 +129,7 @@ const Home = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-4xl font-bold text-center mb-12 text-gradient"
+            className="text-4xl md:text-5xl font-bold text-center mb-12 text-gradient"
           >
             What Our Clients Say
           </motion.h2>
@@ -164,8 +163,7 @@ const Home = () => {
         </div>
       </section>
 
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 

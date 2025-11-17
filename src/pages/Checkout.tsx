@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Bitcoin, Wallet, Download } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import PageLayout from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -95,8 +94,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <PageLayout>
 
       <div className="pt-32 pb-20 px-4">
         <div className="container mx-auto max-w-4xl">
@@ -235,9 +233,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 
