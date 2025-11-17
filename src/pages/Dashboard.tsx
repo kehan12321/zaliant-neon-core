@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Package, User, ShoppingBag, Key, Copy, Check, Download } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import PageLayout from "@/components/PageLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
@@ -49,8 +48,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <PageLayout>
 
       <div className="pt-32 pb-20 px-4">
         <div className="container mx-auto">
@@ -222,9 +220,7 @@ const Dashboard = () => {
           </motion.div>
         </div>
       </div>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 

@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import PageLayout from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
@@ -19,10 +18,11 @@ const Product = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Navbar />
-        <p className="text-xl">Product not found</p>
-      </div>
+      <PageLayout>
+        <div className="pt-32 flex items-center justify-center">
+          <p className="text-xl">Product not found</p>
+        </div>
+      </PageLayout>
     );
   }
 
@@ -42,8 +42,7 @@ const Product = () => {
     .slice(0, 3);
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <PageLayout>
 
       <div className="pt-32 pb-20 px-4">
         <div className="container mx-auto">
@@ -158,9 +157,7 @@ const Product = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 

@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Trash2, Plus, Minus } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import PageLayout from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,8 +12,7 @@ const Cart = () => {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen">
-        <Navbar />
+      <PageLayout>
         <div className="pt-32 pb-20 px-4">
           <div className="container mx-auto text-center">
             <h1 className="text-4xl font-bold mb-4 text-gradient">Your Cart is Empty</h1>
@@ -26,14 +24,12 @@ const Cart = () => {
             </Link>
           </div>
         </div>
-        <Footer />
-      </div>
+      </PageLayout>
     );
   }
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <PageLayout>
 
       <div className="pt-32 pb-20 px-4">
         <div className="container mx-auto">
@@ -161,9 +157,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 

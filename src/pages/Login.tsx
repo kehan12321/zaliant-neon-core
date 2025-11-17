@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import Navbar from "@/components/Navbar";
+import PageLayout from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -28,8 +28,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <PageLayout showFooter={false}>
 
       <div className="pt-32 pb-20 px-4">
         <div className="container mx-auto max-w-md">
@@ -104,7 +103,7 @@ const Login = () => {
           </motion.div>
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 };
 

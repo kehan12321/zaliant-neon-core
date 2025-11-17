@@ -18,8 +18,9 @@ const ProductCard = ({ id, title, description, price, image, index }: ProductCar
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -8 }}
     >
-      <Card className="glass border-border/50 overflow-hidden hover:border-primary/50 transition-all duration-300 group">
+      <Card className="glass border-border/50 overflow-hidden hover:border-primary/50 transition-all duration-300 group card-hover">
         <div className="relative overflow-hidden h-48">
           <img
             src={image}

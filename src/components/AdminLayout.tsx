@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
+import BackgroundVideo from "./BackgroundVideo";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -30,18 +31,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen relative">
       {/* Background Video */}
-      <div className="fixed inset-0 z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src="/admin-bg.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm" />
-      </div>
+      <BackgroundVideo />
 
       <div className="relative z-10 flex min-h-screen">
         {/* Sidebar */}
